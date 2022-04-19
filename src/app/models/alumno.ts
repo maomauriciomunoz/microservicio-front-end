@@ -5,5 +5,5 @@ export class Alumno {
   apellido: string;
   email: string;
   createAt: string;
-  getFotoHashCode: number;
+  fotoHashCode: number;
 }

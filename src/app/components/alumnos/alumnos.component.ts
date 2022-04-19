@@ -4,6 +4,7 @@ import {Alumno} from "../../models/alumno";
 import {filter} from "rxjs";
 import Swal from 'sweetalert2'
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {BASE_ENDPOINT} from "../../config/app";
 
 @Component({
   selector: 'app-alumnos',
@@ -14,6 +15,7 @@ export class AlumnosComponent implements OnInit {
 
   public titulo: string = 'Listado de Alumnos';
   alumnos: Alumno[];   //creamos una lista de tipo Alumno
+  baseEndpoint = BASE_ENDPOINT + '/alumnos';
 
   //atributos para el paginador
   totalRegistros = 0;

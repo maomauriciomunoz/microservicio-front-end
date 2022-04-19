@@ -2,13 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Alumno} from "../models/alumno";
+import {BASE_ENDPOINT} from "../config/app";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlumnoService {
 
-  private baseEndpoint = 'http://localhost:8090/api/alumnos';
+  // private baseEndpoint = 'http://localhost:8090/api/alumnos';
+  private baseEndpoint = BASE_ENDPOINT + '/alumnos';
 
   private cabeceras: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
@@ -43,6 +45,26 @@ export class AlumnoService {
 
   public eliminar(id: number): Observable<void> {
     return this.http.delete<void>(this.baseEndpoint + '/' + id);
+  }
+
+  public crearConFoto(alumno: Alumno, archivo: File): Observable<Alumno>{
+    const formData = new FormData();
+    formData.append('archivo', archivo);
+    formData.append('nombre', alumno.nombre);
+    formData.append('apellido', alumno.apellido);
+    formData.append('email', alumno.email);
+    return this.http.post<Alumno>(this.baseEndpoint + '/crearConFoto', formData);
+
+  }
+
+  public editarConFoto(alumno: Alumno, archivo: File): Observable<Alumno>{
+    const formData = new FormData();
+    formData.append('archivo', archivo);
+    formData.append('nombre', alumno.nombre);
+    formData.append('apellido', alumno.apellido);
+    formData.append('email', alumno.email);
+    return this.http.put<Alumno>(`${this.baseEndpoint}/editarConFoto/${alumno.id}`, formData);
+
   }
 
 

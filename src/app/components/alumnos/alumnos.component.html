@@ -13,6 +13,7 @@
       <thead>
       <tr>
         <th>id</th>
+        <th>Foto</th>
         <th>Nombre</th>
         <th>Apellido</th>
         <th>email</th>
@@ -24,6 +25,8 @@
       <tbody>
       <tr *ngFor="let alumno of alumnos">
         <td>{{alumno.id}}</td>
+        <td><img  [src]=" baseEndpoint + '/uploads/img/' + alumno.id + '?fotoHashCode= ' + alumno.fotoHashCode" class="img" style="width: 74px ; height:74px ; border-radius: 50px;  cursor: pointer" *ngIf="alumno.fotoHashCode">
+          <img  [src]="'/assets/images/usuario.jpg'" class="img" style="width: 74px ; height:74px ; border-radius: 50px;  cursor: pointer" *ngIf="!alumno.fotoHashCode"></td>
         <td>{{alumno.nombre | uppercase}}</td>
         <td>{{alumno.apellido | uppercase}}</td>
         <td>{{alumno.email }}</td>
