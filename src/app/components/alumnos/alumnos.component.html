@@ -1,0 +1,54 @@
+<div class="card border-light mb-3 mt-5">
+  <div class="card-header alert-dark">{{titulo}}</div>
+  <div class="card-body">
+
+    <!-- boton para dirigir al formulario de alumno-->
+    <button class="btn btn-primary my-2" routerLink="/alumnos/form">Crear Alumno</button>
+
+    <div class="alert alert-info" *ngIf="alumnos?.length ==  0">
+      No hay datos para mostrar
+    </div>
+
+    <table class="table table-hover table-striped mt-4" *ngIf="alumnos?.length > 0">
+      <thead>
+      <tr>
+        <th>id</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>email</th>
+        <th>creado en</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let alumno of alumnos">
+        <td>{{alumno.id}}</td>
+        <td>{{alumno.nombre | uppercase}}</td>
+        <td>{{alumno.apellido | uppercase}}</td>
+        <td>{{alumno.email }}</td>
+        <td>{{alumno.createAt | date:'yyyy-MM-dd'}}</td>
+        <td>
+          <button class="btn btn-secondary btn-sm" [routerLink]="['/alumnos/form', alumno.id]">Editar</button>
+        </td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="eliminar2(alumno)">Eliminar</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <mat-paginator [length]="totalRegistros"
+                   [pageSize]="totalPorPagina"
+                   [pageIndex]="paginaActual"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="paginar($event)"
+                   aria-label="Select page"
+                   showFirstLastButtons
+                   class="float-left mx-2">
+    </mat-paginator>
+
+  </div>
+</div>
+
+
