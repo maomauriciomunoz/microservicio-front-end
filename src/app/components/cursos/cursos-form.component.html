@@ -1,0 +1,30 @@
+<div class="card border-light mb-3 mt-5">
+  <div class="card-header alert-dark">Formulario de cursos</div>
+  <div class="card-body">
+
+    <!-- boton para dirigir al formulario de alumno-->
+    <button class="btn btn-secondary my-2" routerLink="/cursos">&blacktriangleleft; volver</button>
+
+
+    <form>
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" class="form-control" [(ngModel)]="curso.nombre">
+        <div class="alert alert-danger" *ngIf="error?.nombre"> {{error.nombre}}</div>
+        <!-- muestra el error de la validacion si el error ocurre -->
+      </div>
+
+
+      <br>
+
+
+      <div class="form-group">
+        <button type="buttom" class="btn btn-primary my-3"
+                (click)="curso.id? editar(): crear()"> {{curso.id ? 'Editar' : 'Crear'}}</button>
+        <!-- click  invoca el metodo crear() que definimos en alumnos-form.component.html -->
+      </div>
+
+    </form>
+  </div>
+</div>
+

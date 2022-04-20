@@ -11,7 +11,7 @@ import Swal from 'sweetalert2'
 })
 export class AlumnosFormComponent implements OnInit {
 
-  public titulo: string = "Formulario Alumno";
+  public titulo: string = "listado Alumno";
 
   alumno: Alumno = new Alumno();
 
