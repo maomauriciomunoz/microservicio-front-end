@@ -1,0 +1,74 @@
+<div class="card border-light mb-3 mt-5" xmlns="http://www.w3.org/1999/html">
+  <div class="card-header alert-dark">Formulario de Examen</div>
+  <div class="card-body">
+
+    <!-- boton para dirigir al formulario de alumno-->
+    <button class="btn btn-secondary my-2" routerLink="/examenes">&blacktriangleleft; volver</button>
+
+
+    <form>
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" class="form-control" [(ngModel)]="examen.nombre">
+        <div class="alert alert-danger" *ngIf="error?.nombre"> {{error.nombre}}</div>
+        <!-- muestra el error de la validacion si el error ocurre -->
+      </div>
+
+      <br>
+
+      <div class="form-group">
+        <label for="asignaturaPadre">Asignatura</label>
+        <select class="form-control" name="asignaturaPadre" id="asignaturaPadre"
+                (change)="cargarHijos()"
+                [compareWith]="compararAsignatura"
+                [(ngModel)]="examen.asignaturaPadre">
+          <option [ngValue]="undefined"> ----- selecciona alguna asignatura -----</option>
+          <option *ngFor="let asignatura of asignaturasPadre" [ngValue]="asignatura">{{asignatura.nombre}}</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="error?.asignaturaPadre"> {{error.asignaturaPadre}}</div>
+        <!-- muestra el error de la validacion si el error ocurre -->
+      </div>
+
+      <div class="form-group">
+        <label for="asignaturaHija">Asignatura Hija</label>
+        <select class="form-control" name="asignaturaHija" id="asignaturaHija"
+                [compareWith]="compararAsignatura"
+                [(ngModel)]="examen.asignaturaHija">
+          <option [ngValue]="undefined"> ----- selecciona alguna asignatura -----</option>
+          <option *ngFor="let asignatura of asignaturasHija" [ngValue]="asignatura">{{asignatura.nombre}}</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="error?.asignaturaHija"> {{error.asignaturaHija}}</div>
+        <!-- muestra el error de la validacion si el error ocurre -->
+      </div>
+
+      <br>
+
+      <button id="agregarPregunta" class="btn  btn-lg my-3" (click)="agregarPregunta()">Agregar Pregunta</button>
+
+      <div class="form-group" *ngFor="let pregunta of examen.preguntas; let i = index">
+        <div class="row">
+          <div class="col-sm-2">
+            <label>Pregunta:  {{i + 1}} </label>
+          </div>
+          <div class="col-sm-6">
+            <input class="form-control" type="text" value="{{pregunta.texto}}"
+                   (change)="asignarTexto(pregunta, $event)">
+          </div>
+          <div class="col-sm-1">
+            <button class=" btn btn-danger btn-sm-1 my-2" (click)="eliminarPregunta(pregunta)">x</button>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-danger" *ngIf="errorPreguntas"> {{errorPreguntas}}</div>
+
+
+
+      <div class="form-group">
+        <button type="buttom" class="btn btn-primary my-3"
+                (click)="examen.id? editar(): crear()"> {{examen.id ? 'Editar' : 'Crear'}}</button>
+        <!-- click  invoca el metodo crear() que definimos en examenes-form.component.ts -->
+      </div>
+
+    </form>
+  </div>
+</div>

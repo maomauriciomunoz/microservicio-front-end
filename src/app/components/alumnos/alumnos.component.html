@@ -18,6 +18,7 @@
         <th>Apellido</th>
         <th>email</th>
         <th>creado en</th>
+        <th>examenes</th>
         <th>Editar</th>
         <th>Eliminar</th>
       </tr>
@@ -31,6 +32,7 @@
         <td>{{alumno.apellido | uppercase}}</td>
         <td>{{alumno.email }}</td>
         <td>{{alumno.createAt | date:'yyyy-MM-dd'}}</td>
+        <td><button class="btn btn-primary btn-sm" [routerLink]="['/alumnos/responder-examen', alumno.id]">responder</button></td>
         <td>
           <button class="btn btn-secondary btn-sm" [routerLink]="['/alumnos/form', alumno.id]">Editar</button>
         </td>

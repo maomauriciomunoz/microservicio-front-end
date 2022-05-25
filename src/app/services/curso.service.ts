@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BASE_ENDPOINT} from "../config/app";
 import {Observable} from "rxjs";
 import {Alumno} from "../models/alumno";
 import {Curso} from "../models/curso";
+import {Examen} from "../models/examen";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,6 @@ export class CursoService {
 
   constructor(private http: HttpClient) {
   }
-
 
 
   public listar(): Observable<Curso[]> {
@@ -49,5 +49,25 @@ export class CursoService {
 
   public eliminar(id: number): Observable<void> {
     return this.http.delete<void>(this.baseEndpoint + '/' + id);
+  }
+
+  public asignarAlumnos(curso: Curso, alumnos: Alumno[]): Observable<Curso> {
+    return this.http.put<Curso>(`${this.baseEndpoint}/${curso.id}/asignar-alumnos`, alumnos, {headers: this.cabeceras});
+  }
+
+  public eliminarAlumno(curso: Curso, alumno: Alumno): Observable<Curso> {
+    return this.http.put<Curso>(`${this.baseEndpoint}/${curso.id}/eliminar-alumno`, alumno, {headers: this.cabeceras});
+  }
+
+  public asignarExamenes(curso: Curso, examenes: Examen[]): Observable<Curso> {
+    return this.http.put<Curso>(`${this.baseEndpoint}/${curso.id}/asignar-examenes`, examenes, {headers: this.cabeceras});
+  }
+
+  eliminarExamen(curso: Curso, examen: Examen): Observable<Curso> {
+    return this.http.put<Curso>(`${this.baseEndpoint}/${curso.id}/eliminar-examen`, examen, {headers: this.cabeceras});
+  }
+
+  obtenerCursoPorAlumnoId(alumno: Alumno): Observable<Curso> {
+    return this.http.get<Curso>(`${this.baseEndpoint}/alumno/${alumno.id}`)
   }
 }

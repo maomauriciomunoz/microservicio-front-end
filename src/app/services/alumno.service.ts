@@ -67,6 +67,10 @@ export class AlumnoService {
 
   }
 
+  public filtrarPorNombre(nombre: string): Observable<Alumno[]>{
+    return this.http.get<Alumno[]>(`${this.baseEndpoint}/filtrar/${nombre}`);
+  }
+
 
   //otra forma de hacer el listar
 
